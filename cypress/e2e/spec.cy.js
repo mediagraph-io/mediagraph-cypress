@@ -3,8 +3,5 @@ describe('Mediagraph Health Check', () => {
     cy.visit('https://mediagraph.io')
     cy.contains('Mediagraph')
     cy.contains('Login')
-
-    // TEST FAIL:
-    cy.contains('FAIL')
   })
 })
