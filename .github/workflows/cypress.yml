@@ -1,8 +1,5 @@
 name: Cypress e2e Specs
 
-env:
-  production_health_check_fail_cmd: ${{ secrets.PRODUCTION_HEALTH_CHECK_FAIL_CMD }}
-
 on:
   repository_dispatch:
   schedule:

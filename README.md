@@ -5,5 +5,7 @@
 To trigger:
 
 ```bash
-curl -XPOST https://api.github.com/repos/mediagraph-io/mediagraph-health-check/dispatches -H 'authorization: Bearer <personal-access-token-with-repo-scope>' -d '{"event_type":"Run Production Health Check"}'
+curl -XPOST https://api.github.com/repos/mediagraph-io/mediagraph-cypress/dispatches -H 'authorization: Bearer <personal-access-token-with-repo-scope>' -d '{"event_type":"Run Production Health Check"}'
 ```
+
+* Use Fine-Grained Access Token with "Contents" read/write, and "Metadata" read.
