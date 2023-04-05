@@ -1,0 +1,38 @@
+name: Cypress e2e Specs
+
+env:
+  production_health_check_fail_cmd: ${{ secrets.PRODUCTION_HEALTH_CHECK_FAIL_CMD }}
+
+on:
+  repository_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          build: yarn build
+
+      # Artifacts:
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      # Test run video was always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
+      - name: Notify Failure
+        if: failure()
+        run: |
+          curl -s "${{ secrets.PRODUCTION_HEALTH_CHECK_FAIL_URL }}/MG+Health+Fail:+https://github.com/mediagraph-io/mediagraph-cypress/actions/runs/${{github.run_id}}"
